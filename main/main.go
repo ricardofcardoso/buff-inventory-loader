@@ -33,8 +33,10 @@ func main() {
 
 func updateInventory() {
 	res := fetchInventory()
-	if len(res.Data.Items) == res.Data.TotalCount {
+	if res != nil && len(res.Data.Items) == res.Data.TotalCount {
 		fmt.Println("All items fetched with success. Saving data to database...")
+	} else {
+		return
 	}
 
 	_, err := inventoryCollection.DeleteMany(context.Background(), bson.D{{}})
@@ -102,6 +104,11 @@ func fetchInventory() *models.Response {
 		if pageNum == 1 {
 			totalPages = response.Data.TotalPage
 		}
+	}
+
+	if finalResponse.Code == "Login Required" {
+		fmt.Println("Session cookie expired. Please update it.")
+		return nil
 	}
 
 	return finalResponse
