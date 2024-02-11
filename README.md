@@ -1,5 +1,5 @@
 # buff-inventory-loader
-App to fetch all inventory items from BUFF163 and save them into a MongoDB collection
+App to fetch (every 5 min) all inventory items from BUFF163 and save them into a MongoDB collection
 
 ## Setup
 Build the image:
