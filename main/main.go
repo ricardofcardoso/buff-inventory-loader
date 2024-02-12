@@ -62,6 +62,10 @@ func fetchInventory() *models.Response {
 	finalResponse := &models.Response{}
 	cookie := os.Getenv("SESSION_COOKIE")
 
+	if cookie == "" {
+		log.Fatal("Please set the env variable SESSION_COOKIE with your BUFF163 session cookie")
+	}
+
 	for pageNum := 1; pageNum <= totalPages; pageNum++ {
 		url := baseUrl + "&page_num=" + strconv.Itoa(pageNum) + "&page_size=" + strconv.Itoa(pageSize)
 

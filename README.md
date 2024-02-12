@@ -16,3 +16,12 @@ docker run -d --net=host \
 -e MONGODB_URI=<YOUR_MONGODB_URI> \
 --name buff-inventory-loader-container buff-inventory-loader:v1.0
 ```
+
+Optionally, you can also run the docker image with an `.env` file as argument:
+
+```bash
+docker run -d --net=host \
+--env-file .env \
+--name buff-inventory-loader-container buff-inventory-loader:v1.0
+```
+##### Make sure you also copy the `.env` file to the docker image on build time.
