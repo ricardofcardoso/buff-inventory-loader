@@ -45,12 +45,17 @@ func updateInventory() {
 		return
 	}
 
-	insertResult, err := inventoryCollection.InsertOne(context.Background(), res)
+	var documents []interface{}
+	for _, item := range res.Data.Items {
+		documents = append(documents, item)
+	}
+
+	insertResult, err := inventoryCollection.InsertMany(context.Background(), documents)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Done: %+v\n", insertResult.InsertedID)
+	fmt.Printf("Done. Inserted %+v items.\n", len(insertResult.InsertedIDs))
 }
 
 func fetchInventory() *models.Response {
